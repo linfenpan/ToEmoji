@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'Android';
+    src: url('AndroidEmoji.eot');
+    src: url('AndroidEmoji.eot?#iefix') format('embedded-opentype'),url('AndroidEmoji.woff') format('woff'),url('AndroidEmoji.ttf') format('truetype'),url('AndroidEmoji.svg#FontAwesomeRegular') format('svg');
+    font-weight: normal;
+    font-style: normal
+}

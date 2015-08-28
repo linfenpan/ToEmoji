@@ -6,6 +6,17 @@
     <title>842个emoji表情</title>
 	<style>
 		*{padding:0;margin:0;}
+		@font-face {
+			font-family: 'Symbola';
+			src: url('font/symbola.eot');
+			src: url('font/symbola.eot?#iefix') format('embedded-opentype'),url('font/symbola.woff') format('woff'),url('font/symbola.ttf') format('truetype'),url('font/symbola.svg#FontAwesomeRegular') format('svg');
+			font-weight: normal;
+			font-style: normal
+		}
+		#cnt{
+			/* 也可使用样式修复之.. */
+			font-family: Symbola;
+		}
 		td{
 			width:8%;
 			padding:10px 2px;
@@ -33,6 +44,7 @@
 <script src="emoji.js" charset="utf-8"></script>
 <script src="emoji.config.js" charset="utf-8"></script>
 <script>
+// 可参考站点: http://apps.timwhitlock.info/emoji/tables/unicode#block-2-dingbats
 
 // 配置转为表格
 ;~function(window, map, elem){
@@ -89,9 +101,8 @@ ToEmoji.init("./images/", EMOJI);
 ToEmoji.emoji(document.getElementById("cnt"));
 
 
-
-// 把emoji转unicode
 /*
+// 把emoji转unicode
 ;~function(window, map){
 
     var cf = {};
@@ -103,8 +114,24 @@ ToEmoji.emoji(document.getElementById("cnt"));
 	// 转unicode
     function decToHex(str) {
         var res=[];
-        for(var i=0;i < str.length;i++)
-            res[i]=("00"+str.charCodeAt(i).toString(16)).slice(-4);
+		
+		var length = str.length, index = 0, output = [], charCode;
+		while (++index < length) {
+			charCode = str.codePointAt(index).toString(16);
+			
+			var character = str.charAt(index);
+			
+			if (charCode >= 0xD800 && charCode <= 0xDBFF) {
+				output.push(character + string.charAt(++index));
+			} else {
+				output.push(character);
+			}
+		}
+		
+		return;
+		
+        for(var i = 0;i < str.length;i++)
+            res[i]=("00"+str.codePointAt(i).toString(16)).slice(-4);
         return "\\u"+res.join("\\u");
     }
 	// 反转为文字
@@ -115,9 +142,8 @@ ToEmoji.emoji(document.getElementById("cnt"));
 
     console.log(JSON.stringify(cf));
 }(window, EMOJI);
+
 */
-
-
 
 </script>
 
