@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>842个emoji表情</title>
+	<style>
+		*{padding:0;margin:0;}
+		td{
+			width:8%;
+			padding:10px 2px;
+			border:1px solid #ddd;
+			text-align:center;
+		}
+	</style>
+</head>
+
+<body>
+    <div id="cnt">
+        😙就是一张 😄 的好图!!!😃😀
+        <br/>
+        <div>
+            看看这里!!!
+            <span data-key="😄">这是一个纯粹的标签，虽然属性带上emoji表情，但是完全没受到影响哦~</span>
+        </div>
+        <br/>
+        <div id="table">
+			
+        </div>
+    </div>
+</body>
+
+<script src="emoji.js" charset="utf-8"></script>
+<script src="emoji.config.js" charset="utf-8"></script>
+<script>
+
+// 配置转为表格
+;~function(window, map, elem){
+	
+	var per		=	10;
+	var html	= 	"<table>";
+	
+	var index	=	0;
+	var item;
+	for(var i in map){
+		if(index % per == 0){
+			html += "<tr>"
+		}
+		
+		item = map[i];
+		html += "<td><p>"+ (index + 1) + " " + item.key+"</p><p data-key='"+item.key+"'></p><p>"+item.unicode+"</p></td>";
+		
+		if(index % per == per - 1){
+			html += "</tr>"
+		}
+		
+		index++;
+	}
+	
+	// 修复末尾的几个元素
+	index = per - index % per;
+	for(var i = 0, max = index; i < max; i++){
+		html += "<td>&nbsp;</td>";
+	}
+	if(i > 0){
+		html += "</tr>"
+	}
+	
+	
+	html += "</table>";
+	elem.innerHTML = html;
+	
+	// 展示文字
+	if(elem.querySelectorAll){
+		window.setTimeout(function(){
+			var list = document.getElementById("table").querySelectorAll("[data-key]");
+			for(var i = 0, max = list.length; i < max; i++){
+				list[i].innerHTML = list[i].getAttribute("data-key");
+			}
+		}, 1);
+	}
+
+}(window, EMOJI, document.getElementById("table"));
+
+
+
+// ToEmoji.emoji(document.getElementById("cnt"));
+ToEmoji.init("./images/", EMOJI);
+ToEmoji.emoji(document.getElementById("cnt"));
+
+
+
+// 把emoji转unicode
+/*
+;~function(window, map){
+
+    var cf = {};
+    for(var i in map){
+        cf[i] = map[i];
+        cf[i].unicode = decToHex(cf[i].key);
+    };
+	
+	// 转unicode
+    function decToHex(str) {
+        var res=[];
+        for(var i=0;i < str.length;i++)
+            res[i]=("00"+str.charCodeAt(i).toString(16)).slice(-4);
+        return "\\u"+res.join("\\u");
+    }
+	// 反转为文字
+	function hexToDec(str){
+		str = str.replace(/\\/g, "%");
+		return unescape(str);
+	}
+
+    console.log(JSON.stringify(cf));
+}(window, EMOJI);
+*/
+
+
+
+</script>
+
+
+
+
+
+</html>
